@@ -20,7 +20,7 @@ resource "digitalocean_droplet" "droplet" {
       "export PATH=$PATH:/usr/bin",
       # install nginx
       "sudo apt update",
-      "sudo apt install -y python3_full"
+      "sudo apt install -y python3-full"
     ]
   }
 }
