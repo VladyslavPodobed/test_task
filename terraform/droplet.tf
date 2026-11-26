@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "droplet" {
-  image  = "ubuntu-20-04-x64"
+  image  = "ubuntu-24-04-x64"
   name   = "droplet"
   region = "nyc3"
   size   = "s-1vcpu-512mb-10gb"
