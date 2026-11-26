@@ -7,18 +7,29 @@
 
 - name: allow ssh
   community.general.ufw:
-    default: "allow"
+    rule: allow
     to_port: "22"
-    proto: "tcp"
+    proto: tcp
   
 - name: allow http
   community.general.ufw:
-    default: "allow"
+    rule: allow
     to_port: "80"
-    proto: "tcp"
+    proto: tcp
+
+- name: default deny incoming
+  community.general.ufw:
+    default: deny
+    direction: incoming
+
+- name: default allow outgoing
+  community.general.ufw:
+    default: allow
+    direction: outgoing
 
 - name: enable ufw
   community.general.ufw:
-    state: "enabled"
-    default: "deny"
-    direction: "incoming"
+    state: enabled
+
+- name: reload ufw
+  ansible.builtin.command: ufw reload
