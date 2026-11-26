@@ -1,8 +1,9 @@
 sshd_config: |
+  PermitRootLogin prohibit-password
   PasswordAuthentication no
   KbdInteractiveAuthentication no
   PubkeyAuthentication yes
-  AllowUsers deploy
+  AllowUsers {{ user_name }} root
   MaxAuthTries 3
   LoginGraceTime 30
   X11Forwarding no
