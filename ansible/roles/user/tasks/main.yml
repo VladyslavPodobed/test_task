@@ -22,3 +22,17 @@
     path: "/home/{{ user_name }}/.ssh/authorized_keys"
     manage_dir: true
     key: "file:///home/{{ user_name }}/.ssh/{{ ssh_key_name }}.pub"
+
+- name: fetch priv key to control node
+  become: yes
+  ansible.builtin.fetch:
+    src: "/home/{{ user_name }}/.ssh/{{ ssh_key_name }}"
+    dest: "{{ playbook_dir }}/keys/{{ ansible_host }}/{{ ssh_key_name }}"
+    flat: yes
+
+- name: restrict perms on fetched priv key
+  ansible.builtin.file:
+    path: "{{ playbook_dir }}/keys/{{ ansible_host }}/{{ ssh_key_name }}"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
