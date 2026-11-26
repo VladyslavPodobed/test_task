@@ -1,0 +1,5 @@
+# I might actually need to restart the ssh.socket as well as do daemon-reload
+- name: restart ssh
+  ansible.builtin.systemd:
+    name: ssh
+    state: restarted
