@@ -1,0 +1,11 @@
+- name: move docker dir to remote host
+  ansible.builtin.copy:
+    src: "../../../../docker"
+    dest: "/home/{{ user_name }}/"
+
+- name: spin up docker compose
+  ansible.builtin.command:
+    chdir: "/home/{{ user_name }}/docker"
+    cmd: |
+      docker compose up -d
+    

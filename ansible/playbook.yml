@@ -6,3 +6,4 @@
     - user
     - ssh
     - ufw
+    - docker

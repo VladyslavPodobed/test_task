@@ -1,0 +1,42 @@
+services:
+  reverse_proxy:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes: # need to add ngnix config
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      # mask out the image's stock default.conf (server_name localhost) which
+      # otherwise steals requests with Host: localhost and 404s them
+      - ./proxy-conf.d:/etc/nginx/conf.d
+    restart:
+      always
+
+  website_one:
+    image: nginx:alpine
+    volumes:
+      - ./site1:/usr/share/nginx/html
+      # what we will have in the container is /usr/share/nginx/html/index.html
+    restart: always
+
+  website_two:
+    image: nginx:alpine
+    volumes:
+      - ./site2:/usr/share/nginx/html
+      # what we will have in the container is /usr/share/nginx/html/index.html
+    restart: always
+
+  website_three:
+    image: nginx:alpine
+    volumes:
+      - ./site3:/usr/share/nginx/html
+      - ./site3/site3.nginx.conf:/etc/nginx/conf.d/default.conf
+    restart: always
+
+
+# php fpm is for php to a web server
+  php_fpm:
+    image: php:fpm-alpine
+    volumes:
+      - ./site3:/usr/share/nginx/html
+    restart: always
+
