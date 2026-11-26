@@ -1,0 +1,4 @@
+- name: create /etc/ssh/sshd_config.d/20-ssh-hardening.conf
+  ansible.builtin.copy:
+    dest: "/etc/ssh/ssh_config.d/20-ssh-hardening.conf"
+    content: "{{ sshd_config }}"

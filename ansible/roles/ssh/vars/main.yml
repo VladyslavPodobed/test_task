@@ -1,0 +1,9 @@
+sshd_config: |
+  PasswordAuthentication no
+  KbdInteractiveAuthentication no
+  PubkeyAuthentication yes
+  AllowUsers deploy
+  MaxAuthTries 3
+  LoginGraceTime 30
+  X11Forwarding no
+  UsePAM no

@@ -4,3 +4,4 @@
   roles:
     - dependencies
     - user
+    - ssh
