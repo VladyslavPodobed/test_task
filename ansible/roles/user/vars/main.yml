@@ -1,0 +1,5 @@
+user_name: "test_user"
+user_groups: sudo
+shell: "/bin/bash"
+ssh_key_name: test_user_ssh_key
+ssh_key_type: ed25519

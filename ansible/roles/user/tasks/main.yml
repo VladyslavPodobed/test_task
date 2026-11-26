@@ -1,0 +1,24 @@
+# create user
+# ensure has ssh key
+# add his pub key to authorized_keys (authorized_keys vs file module)
+# grant sudo rights
+
+- name: create user
+  become: yes
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    group: "{{ user_groups }}"
+    shell: "{{ shell }}"
+    generate_ssh_key: true
+    ssh_key_type: "{{ ssh_key_type }}"
+    ssh_key_file: "/home/{{ user_name }}/.ssh/{{ ssh_key_name }}"
+    create_home: true
+
+- name: create authorized_keys file
+  become: yes
+  ansible.posix.authorized_key:
+    user: "{{ user_name }}"
+    state: "present"
+    path: "/home/{{ user_name }}/.ssh/authorized_keys"
+    manage_dir: true
+    key: "file:///home/{{ user_name }}/.ssh/{{ ssh_key_name }}.pub"
