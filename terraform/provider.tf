@@ -8,6 +8,12 @@ terraform {
       source  = "hashicorp/local"
       version = "~> 2.0"
     }
+
+    ansible = {
+      version = "~> 1.4.0"
+      source  = "ansible/ansible"
+    }
+
   }
 }
 
@@ -41,3 +47,17 @@ EOF
 EOT
   }
 }
+
+
+resource "ansible_playbook" "playbook" {
+  playbook   = "../ansible/playbook.yml"
+  name       = "droplet"
+  replayable = true
+  extra_vars = {
+    ansible_user                 = "root"
+    ansible_host                 = digitalocean_droplet.droplet.ipv4_address
+    ansible_ssh_private_key_file = abspath(var.pvt_key)
+    ansible_ssh_common_args      = "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+  }
+}
+
