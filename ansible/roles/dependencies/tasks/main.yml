@@ -1,3 +1,7 @@
+- name: wait for apt locks to be released (unattended-upgrades on fresh boot)
+  ansible.builtin.command: apt-get -o DPkg::Lock::Timeout=600 update
+  changed_when: false
+
 - name: install prerequisites for the docker apt repository
   ansible.builtin.apt:
     name:
@@ -6,6 +10,7 @@
       - gnupg
     state: present
     update_cache: yes
+    lock_timeout: 600
 
 - name: add docker's official gpg key
   ansible.builtin.get_url:
@@ -29,6 +34,7 @@
       - docker-compose-plugin
     state: present
     update_cache: yes
+    lock_timeout: 600
 
 - name: enable and start docker service
   ansible.builtin.systemd:
