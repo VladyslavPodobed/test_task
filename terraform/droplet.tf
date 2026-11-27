@@ -2,7 +2,7 @@ resource "digitalocean_droplet" "droplet" {
   image  = "ubuntu-24-04-x64"
   name   = "droplet"
   region = "nyc3"
-  size   = "s-1vcpu-512mb-10gb"
+  size   = "s-1vcpu-1gb"
   ssh_keys = [
     data.digitalocean_ssh_key.terraform.id
   ]
